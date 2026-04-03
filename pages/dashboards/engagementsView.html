@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- TODO: META STYFF-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- including bootstrap CSS --> <!-- TODO: implement better way of doing this for all pages -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- including scripts -->
+    <script src="../../scripts/components.js" defer></script>
+
+    <title>Advisory Admin</title>
+</head>
+<body>
+    <main-header></main-header>
+
+    <!--
+        General idea:
+            - primary interaction is big table with search bar at top, table can paginate, search, display engagements and open to more info maybe
+            - main page is engagement dashboard that can show an advisory and client name
+            - left side bar can open client or advisory specific dashboard - will likely just use navbar instead
+            - perhaps make engagement row able to link to client, advisory, and engagement
+            - client view pulls up client info along with every relevant engagement in another table
+            - same with advisory
+            - note - read writeup repeatedly and make sure all functionalities are implemented, 
+                - things to watch out for:
+                    + edge cases like making new engagements for services an advisory doesn't offer or services that are discontinued
+                    + advisories are meant to offer multiple services, might have to make a table for that
+                - stretch goals we are going for:
+                    + search and filter - general ideas are names of clients, advisories, words in engagement notes, annual fees, and statuses
+                    + annual fee summary
+    -->
+    <div class="container">
+        <div class ="row">
+            <!-- Add new engagement button -->
+            <div class = "col">
+                <a href="../addNewPages/addNewEngagement.html"> <!-- TODO: for now this goes to the html, it should go to the actual page or something somehow later idfk-->
+                    <button type="button" class="btn btn-success">Add Engagement</button>
+                </a>
+            </div>
+
+            <div class="col">
+                <!-- place search bar here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+        <!-- ENGAGEMENT TABLE -->
+            <div class="col">
+                <!-- Tables - easy way to display info -->
+                <table id="engagements-table" class="table table-light table-hover my-8">
+                    <thead>
+                        <tr>
+                            <th>Advisory</th> <!-- name of related advisory, should also link to the single item view of the client -->
+                            <th>Client</th> <!-- first/last of client, should also link to the single item view of the client -->
+                            <th>Start Date</th> 
+                            <th>Status</th>
+                            <th>Notes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <!-- worth considering adding annual fee as that would be decided by the advisory service being used in the engagement -->
+                            <!-- worth considering adding a relevant contact info for the client, maybe allow a preferred one to be selected between phone and email-->
+                        </tr>
+                    </thead>
+                    <tbody id="engagements-table-body">
+                        <!-- data will be added by the JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- including bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
