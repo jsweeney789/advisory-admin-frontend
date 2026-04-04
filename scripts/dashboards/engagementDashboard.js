@@ -2,6 +2,16 @@ const URL = "http://localhost:8080/engagements"; // engagements url
 let allEngagements = [];
 let selectedEngagement;
 
+// search bar logic
+searchInput.addEventListener("input", (e) => {
+    console.log(e);
+    const value = e.target.value.toLowerCase();
+    allEngagements.forEach(engagement => {
+        const isVisible = engagement.notes.toLowercase().includes(e); // make this actually work and make sense, will probably have to implement on easier dashboard first
+        engagement.element.classList.toggle("hide", !isVisible);
+    })
+})
+
 // load all engagements on loading page, should probably organize it via advisory service
 document.addEventListener("DOMContentLoaded", () => {
     // 
@@ -49,5 +59,5 @@ const addEngagementToTable = (newEngagement) => {
     let tableBody = document.getElementById("engagements-table-body")
     tableBody.appendChild(tr);
 
-    allEngagements.push(newEngagement);
+    allEngagements.push({...newEngagement, element: tr});
 }
