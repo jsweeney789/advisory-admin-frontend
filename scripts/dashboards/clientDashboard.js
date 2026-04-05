@@ -17,7 +17,7 @@
 
 const URL = "http://localhost:8080/clients"; // clients url
 let allClients = [];
-let selectedClient;
+let selectedClientId;
 
 // load all clients on loading page, should probably organize alphabetically by client last,first
 document.addEventListener("DOMContentLoaded", () => {
@@ -51,9 +51,12 @@ const addClientToTable = (newClient) => {
     tier.innerText = newClient.tier;
     netWorth = newClient.estNetWorth;
 
-    // I think it's worth copying the edit/delete buttons from class. Edit will be a form and delete will bring up a toast pop-up to delete the row
-    editBtnTd.innerHTML = `<button class="btn btn-primary p-1" id="EDIT-${newClient.clientId}" onclick="activateEditForm(${newClient.clientId})">Edit</button>`;
-    deleteBtnTd.innerHTML = `<button class="btn btn-danger p-1" id="EDIT-${newClient.clientId}" onclick="activateDeletePopUp(${newClient.clientId})">Delete</button>`;
+    editBtnTd.innerHTML = `
+    <button class="btn btn-primary p-1" id="EDIT-${newClient.clientId}" onclick="activateEdit(${newClient.clientId})">Edit</button>
+    `;
+    deleteBtnTd.innerHTML = `
+    <button class="btn btn-danger p-1 delete-btn" id="DELETE-${newClient.clientId}" onclick="activateDeletePopUp(${newClient.clientId})">Delete</button>
+    `;
 
     tr.appendChild(name);
     tr.appendChild(email);
@@ -63,9 +66,43 @@ const addClientToTable = (newClient) => {
 
     tr.appendChild(editBtnTd);
     tr.appendChild(deleteBtnTd);
+
+    tr.setAttribute("id", "TR-" + newClient.id);
     let tableBody = document.getElementById("clients-table-body")
     tableBody.appendChild(tr);
 
     allClients.push({...newClient, element: tr});
 }
 
+const activeEdit = (clientId) => {
+    window.location.href = `/../addEditPages/addEditClient.html/${clientId}`;
+}
+
+
+const activateDeletePopUp = (clientId) => {
+    selectedClientId = clientId;
+    new bootstrap.Modal(document.getElementById("delete-modal"));
+}
+
+document.getElementById("confirm-delete-btn").addEventListener("click", (eventInfo) => {
+    eventInfo.preventDefault();
+    deleteClient(selectedClientId);
+})
+
+const deleteClient = (clientId) => {
+    let tr = document.getElementById(`TR-${clientId}`);
+    tr.remove();
+
+    fetch(URL+`/${clientId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error("Delete request failed");
+        }
+    }).catch( error => {console.error("Error fetching data: ", error)})
+
+    allClients.splice(clientId, 1);
+}

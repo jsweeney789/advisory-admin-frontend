@@ -24,6 +24,8 @@ class Header extends HTMLElement {
 customElements.define('main-header', Header);
 
 // TODO: note that as we copy/pasted the forms, the sizes of each box and the text of each label are terrible for our site. All of them need fixing
+// I thought I was going to end up reusing forms in multiple pages for both add and edit, but I was able to reuse them. These forms shouldn't be in the componenets 
+// by the time I'm finished
 
 class EngagementForm extends HTMLElement {
   // TODO: this one is the most complicated, as we need to figure out a way to link to already existing advisories and clients OR
@@ -161,84 +163,8 @@ class AdvisoryForm extends HTMLElement { // TODO: think about ways to add servic
     `;
   }
 }
-class ClientForm extends HTMLElement { // TODO: make forms less disgusting and ugly
-  connectedCallback() {
-    this.innerHTML = `
-<form id="new-client-form" action="#">  <!-- forms naturally try to redirect you, so use # action to prevent. Or give it a page to redirect you to -->
 
-  <h3 class="h3 p-1 text-light">New Advisory Service</h3>
-
-  <div class="row mb-3">
-
-      <div class="col-2">
-
-          <div class="mx-1"> 
-              <label for="new-client-first" class="form-label text-light">Client First Name</label>
-              <input type="text" class="form-control" id="new-client-first" name="new-client-first" placeholder="John">
-          </div>
-      </div>
-      <div class="col-2">
-
-          <div class="mx-1"> 
-              <label for="new-client-last" class="form-label text-light">Client Last Name</label>
-              <input type="text" class="form-control" id="new-client-last" name="new-client-last" placeholder="Smith">
-          </div>
-      </div>
-      <div class="col-2">
-
-        <div class="mx-1"> 
-            <label for="new-client-phone" class="form-label text-light">Client Phone #</label>
-            <input type="text" class="form-control" id="new-client-phone" name="new-client-phone" placeholder="1-999-999-9999">
-        </div>
-          
-      </div>
-
-      <div class="col-2">
-
-        <div class="mx-1"> 
-            <label for="new-client-email" class="form-label text-light">Client Email</label>
-            <input type="text" class="form-control" id="new-client-email" name="new-client-email" placeholder="jsmith@example.com">
-        </div>
-          
-      </div>
-  </div>
-  <div class="row mb-3">
-      <div class="col">
-          
-          <div class="mx-1">
-              <label for="new-client-tier" class="form-label text-light">Client Tier</label>
-              <select id="new-client-tier" class="form-select" name="new-client-tier" aria-label="Tier Select">
-                  <option selected>Select Tier</option>
-                  <option value="STANDARD">Standard</option>
-                  <option value="PREMIUM">Premium</option>
-                  <option value="PRIVATE_BANKING">Private Banking</option>
-              </select>
-      </div>
-      <div class="col">
-          
-          <div class="mx-1">
-              <label for="new-net-worth" class="form-label text-light">Delivery Format</label>
-              <select id="new-net-worth" class="form-select" name="new-net-worth" aria-label="Net Worth Form Select">
-                  <option selected>Select Range of Net Worth</option>
-                  <option value="STANDARD">Action</option> <!-- TODO: fully fill out and set up the enums for this -->
-                  <option value="ROMANCE">Romance</option>
-                  <option value="THRILLER">Thriller</option>
-                  <option value="SCIENCE_FICTION">Sci-Fi</option>
-                  <option value="COMEDY">Comedy</option>
-              </select>
-      </div>
-      
-  </div>
-  <div class="row">
-      <div class="col justify-content-right">
-          <button type="submit" class="btn btn-success mx-1">Submit</button>
-      </div>
-  </div>
-</form>
-    `;
-  }
-}
 
 customElements.define('engagement-form', EngagementForm);
 customElements.define('advisory-form', AdvisoryForm);
-customElements.define('client-form', ClientForm);
+

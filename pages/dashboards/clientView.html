@@ -23,30 +23,63 @@
     -->
 
     <!-- Add new client button -->
-    <div class = "col">
-        <a href="../addNewPages/addNewClient.html"> <!-- TODO: for now this goes to the html, it should go to the actual page or something somehow later idfk-->
-            <button type="button" class="btn btn-success">Add Client</button>
-        </a>
+     <div class="container-fluid">
+        <div class="row justify-content-center" style="margin-top: 5%">
+            <!-- search bar-->
+            <div class="col-10">
+                <div class="search-wrapper">
+                    <label for="search">Search Clients</label>
+                    <input type="search" id="search" data-search class="form-control">
+                </div>
+            </div>
+            <div class = "col-1">
+                <a href="../addNewPages/addNewClient.html"> <!-- TODO: for now this goes to the html, it should go to the actual page or something somehow later idfk-->
+                    <button type="button" class="btn btn-success">Add Client</button>
+                </a>
+            </div>
+
+        </div>
     </div>
 
     <!-- CLIENT TABLE -->
-     <div class="col">
-        <!-- Tables - easy way to display info -->
-        <table id="clients-table" class="table table-light table-hover my-8">
-            <thead>
-                <tr>
-                    <th>Name</th> <!-- we'll list both names here but when editing should have boxes for them separately -->
-                    <th>Email</th> <!-- might be worth grouping together as "contact info" in many applications -->
-                    <th>Phone Number</th> <!-- maybe add a preferred contact info dropdown for fun and for engagement dashboard -->
-                    <th>Tier</th> <!-- not sure whether to call "tier" or "service tier" or "client tier" or something yet-->
-                    <th>Net Worth Range</th> <!-- write up is fairly specific about saying range instead of actual net worth, will leave this simple for now-->
-
-                </tr>
-            </thead>
-            <tbody id="clients-table-body">
-                <!-- client data will be added by the JS -->
-            </tbody>
-        </table>
+     <div claass="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <!-- Tables - easy way to display info -->
+                <table id="clients-table" class="table table-light table-hover my-5">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Name</th> <!-- we'll list both names here but when editing should have boxes for them separately -->
+                            <th>Email</th> <!-- might be worth grouping together as "contact info" in many applications -->
+                            <th>Phone Number</th> <!-- maybe add a preferred contact info dropdown for fun and for engagement dashboard -->
+                            <th>Tier</th> <!-- not sure whether to call "tier" or "service tier" or "client tier" or something yet-->
+                            <th>Net Worth Range</th> <!-- write up is fairly specific about saying range instead of actual net worth, will leave this simple for now-->
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients-table-body">
+                        <!-- client data will be added by the JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+
+    <div class="modal" id="delete-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">Confirm Delete</div>
+            <div class="modal-body">Are you sure?</div>
+            <div class="modal-footer">
+                <button id="confirm-delete-btn" class="btn btn-danger">Delete</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- including bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
