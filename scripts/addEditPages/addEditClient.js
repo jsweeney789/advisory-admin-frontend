@@ -1,24 +1,26 @@
 const params = new URLSearchParams(window.location.search);
-const clientId = params.get("id");
+const clientURLId = params.get("id");
 
 // in the case of getting to this page from the edit button, autofill the form with previous data
-if (clientId) {
+if (clientURLId) {
     // some page stuff so that user knows we are updating instead of creating new while I can still use the same page
     const header = document.getElementById("form-header");
-    header.innerText = "Update Client";
+    header.innerText = "Update Client:";
     const submitBtn = document.getElementById("client-submit-button");
     submitBtn.classList.remove("btn-success");
     submitBtn.classList.add("btn-primary");
 
-    fetch(`/api/clients/${clientId}`)
+    fetch(`http://localhost:8080/clients/${clientURLId}`)
         .then(response => response.json())
         .then(client => {
+            console.log(client.clientId);
             document.getElementById("new-client-first").value = client.firstName;
             document.getElementById("new-client-last").value = client.lastName;
             document.getElementById("new-client-email").value = client.email;
             document.getElementById("new-client-phone").value = client.phone;
             document.getElementById("new-client-tier").value = client.tier;
             document.getElementById("new-net-worth").value = client.estNetWorth;
+            header.innerText = "Update Client: " + client.firstName + " " + client.lastName;
         });
 }
 
@@ -27,6 +29,7 @@ document.getElementById("client-form").addEventListener("submit", (eventInfo) =>
 
     let inputData = new FormData(document.getElementById("client-form"));
     const newClient = {
+        clientId: clientURLId,
         firstName: inputData.get("new-client-first"),
         lastName: inputData.get("new-client-last"),
         email: inputData.get("new-client-email"),
@@ -41,11 +44,12 @@ document.getElementById("client-form").addEventListener("submit", (eventInfo) =>
 });
 
 const saveClient = async (newClient) => {
+    console.log(newClient);
     let requestType = "POST";
     let fetchURL = "http://localhost:8080/clients"
-    if (clientId) {
+    if (clientURLId) {
         requestType = "PUT";
-        fetchURL += `/${clientId}`;
+        fetchURL += `/${clientURLId}`;
     }
 
     const httpResponse = await fetch(fetchURL, {

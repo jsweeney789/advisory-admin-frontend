@@ -16,6 +16,8 @@
 <body>
     <main-header></main-header>
 
+    <h3 class="h3 p-4 text-dark text-center" id="form-header" style="margin-top: 3%;">Engagements Dashboard</h3>
+
     <!--
         General idea:
             - primary interaction is big table with search bar at top, table can paginate, search, display engagements and open to more info maybe
@@ -35,30 +37,30 @@
                     + service popularity view (literally one DB query)
     -->
     <div class="container">
-        <div class ="row">
+        <div class ="row" style="margin-top: 2%">
             <!-- Add new engagement button -->
-            <div class = "col">
-                <a href="../addNewPages/addNewEngagement.html"> <!-- TODO: for now this goes to the html, it should go to the actual page or something somehow later idfk-->
-                    <button type="button" class="btn btn-success">Add Engagement</button>
-                </a>
-            </div>
-
-            <div class="col">
+            <div class="col-10">
                 <div class="search-wrapper">
                     <label for="search">Search Engagements</label>
-                    <input type="search" id="search" data-search>
+                    <input type="search" id="search" data-search class="form-control">
                 </div>
+            </div>
+
+            <div class = "col-1">
+                <a href="../addEditPages/addEditEngagement.html"> <!-- TODO: for now this goes to the html, it should go to the actual page or something somehow later idfk-->
+                    <button type="button" class="btn btn-success">Add Engagement</button>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-        <!-- ENGAGEMENT TABLE -->
-            <div class="col">
+    <!-- ENGAGEMENT TABLE -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
                 <!-- Tables - easy way to display info -->
-                <table id="engagements-table" class="table table-light table-hover my-8">
-                    <thead>
+                <table id="engagements-table" class="table table-light table-hover my-5">
+                    <thead class="text-center">
                         <tr>
                             <th>Advisory</th> <!-- name of related advisory, should also link to the single item view of the client -->
                             <th>Client</th> <!-- first/last of client, should also link to the single item view of the client -->
@@ -71,10 +73,23 @@
                             <!-- worth considering adding a relevant contact info for the client, maybe allow a preferred one to be selected between phone and email-->
                         </tr>
                     </thead>
-                    <tbody id="engagements-table-body">
+                    <tbody id="engagements-table-body" class="text-center">
                         <!-- data will be added by the JS -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="delete-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header" style="font-size: 2rem">Confirm Delete</div>
+            <div class="modal-body" id="delete-modal-body">Are you sure?</div>
+            <div class="modal-footer">
+                <button id="cancel-delete-btn" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-delete-btn" class="btn btn-danger">Delete</button>
+            </div>
             </div>
         </div>
     </div>
