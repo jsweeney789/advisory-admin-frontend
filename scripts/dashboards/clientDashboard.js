@@ -1,20 +1,3 @@
-/**
- * This will be the first dashboard (and set of related pages) we finish in detail even though we've started drafting on the others
- * Order of operations:
- *   *X*1. Implement getAll functionality so that table can display example data
- *      2. Create some example data
- *      3. Implement getClient functionality and work on detailedClientView so we can view one object
- *      4. create some related advisory data and engagements so we can display the engagements related to the single client
- *          - make detailed client view and all its data look nice
- *      *** note this is R of CRUD done
- *   *X*5. Implement addNewClient functionality which means setting up addNewClient page
- *   *X*6. Implement editClient functionality - hopefully we can reuse most of addNewClient page
- *   *X*7. Refactor forms and make everything look nice - this is C and U of CRUD done
- *   *X*8. Implement deleteClient functionality with button in row
- *   *X*9. This requires some kind of pop-up or 2-button decision tree for confirmation - could use toast or modulars or whatever
- *      10. Repeat process for advisory and engagements
- */
-
 const URL = "http://localhost:8080/clients"; // clients api url
 let allClients = [];
 let selectedClientId;
@@ -44,7 +27,9 @@ const addClientToTable = (newClient) => {
     let tier = document.createElement("td");
     let netWorth = document.createElement("td");
     let annualFeeObligation = document.createElement("td");
+    let serviceCount = document.createElement("td");
 
+    let infoBtnTd = document.createElement("td");
     let editBtnTd = document.createElement("td");   // creates <td> tag for edit button
     let deleteBtnTd = document.createElement("td"); // creates <td> tag for delete button
 
@@ -56,21 +41,26 @@ const addClientToTable = (newClient) => {
     tier.innerText = mapTierFromEnumToText(newClient.tier);
     netWorth.innerText = mapNetWorthFromEnumToText(newClient.estNetWorth);
     annualFeeObligation.innerText = "$" + newClient.annualFeeObligation
+    serviceCount.innerText = newClient.serviceCount;
+    
 
+    infoBtnTd.innerHTML = `
+    <button class="btn btn-secondary p-1" id="INFO-${newClient.clientId}" onclick="activateInfo(${newClient.clientId})"><i class="bi bi-search"></i></button>`
     editBtnTd.innerHTML = `
-    <button class="btn btn-primary p-1" id="EDIT-${newClient.clientId}" onclick="activateEdit(${newClient.clientId})">Edit</button>
-    `;
+    <button class="btn btn-primary p-1" id="EDIT-${newClient.clientId}" onclick="activateEdit(${newClient.clientId})"><i class="bi bi-pencil-square"></i></button>`;
     deleteBtnTd.innerHTML = `
     <button class="btn btn-danger p-1 delete-btn" id="DELETE-${newClient.clientId}" onclick="openModal(${newClient.clientId})"
-    data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>
-    `;
+    data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="bi bi-trash"></i></button>`;
     
+    tr.appendChild(infoBtnTd);
+
     tr.appendChild(name); 
     tr.appendChild(email); 
     tr.appendChild(phone);
     tr.appendChild(tier);
     tr.appendChild(netWorth); 
     tr.appendChild(annualFeeObligation);
+    tr.appendChild(serviceCount);
 
     tr.appendChild(editBtnTd);
     tr.appendChild(deleteBtnTd);
@@ -80,11 +70,14 @@ const addClientToTable = (newClient) => {
     tableBody.appendChild(tr);
     
     allClients.push({...newClient, element: tr});
-    
 }
 
 const activateEdit = (clientId) => {
     window.location.href = `../addEditPages/addEditClient.html?id=${clientId}`;
+}
+
+const activateInfo = (clientId) => {
+    window.location.href = `../detailedViews/clientDetailedView.html?id=${clientId}`;
 }
 
 const openModal = (clientId) => {
@@ -153,7 +146,7 @@ searchInput.addEventListener("input", (e) => {
     })
 })
 
-const mapNetWorthFromEnumToText = (enumString) => {
+function mapNetWorthFromEnumToText(enumString) {
     switch(enumString) {
         case "UNDER_500K":       return "<$500k>";
         case "BETWEEN_500K_2M":  return "$500k-$2M";
@@ -163,7 +156,7 @@ const mapNetWorthFromEnumToText = (enumString) => {
     }
 }
 
-const mapTierFromEnumToText = (enumString) => {
+function mapTierFromEnumToText(enumString) {
     switch(enumString) {
         case "STANDARD":          return "Standard";
         case "PREMIUM":           return "Premium";

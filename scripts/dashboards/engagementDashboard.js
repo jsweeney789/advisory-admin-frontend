@@ -8,8 +8,27 @@ searchInput.addEventListener("input", (e) => {
     console.log(e);
     const value = e.target.value.toLowerCase();
     allEngagements.forEach(engagement => {
-        const isVisible = engagement.notes.toLowercase().includes(e); // make this actually work and make sense, will probably have to implement on easier dashboard first
-        engagement.element.classList.toggle("hide", !isVisible);
+
+        const client = engagement.client;
+        const fullName = client.firstName + " " + client.lastName;
+        const clientVisible = client.firstName.toLowerCase().includes(value) || client.lastName.toLowerCase().includes(value) ||
+                          client.email.toLowerCase().includes(value) || client.phone.toLowerCase().includes(value) ||
+                          client.estNetWorth.toLowerCase().includes(value) || client.tier.toLowerCase().includes(value) ||
+                          fullName.toLowerCase().includes(value);
+
+        const advisory = engagement.advisory;
+        const advisoryVisible = advisory.name.toLowerCase().includes(value) || advisory.serviceType.toLowerCase().includes(value) ||
+                                advisory.deliveryFormat.toLowerCase().includes(value) || advisory.annualFee.toString().includes(value);
+
+        const engagementVisible = engagement.startDate.includes(value) || engagement.status.includes(value) || engagement.notes.includes(value);
+        const isVisible = ((clientVisible || advisoryVisible) || engagementVisible);
+
+        if (isVisible) {
+            engagement.element.style.display = "";
+        } else {
+            engagement.element.style.display = "none";
+        }
+        
     })
 })
 
@@ -47,14 +66,15 @@ const addEngagementToTable = (newEngagement) => {
     startDate.innerText = newEngagement.startDate;
     status.innerText = newEngagement.status;
 
-    let notesHolder = newEngagement.notes;
-    if (notesHolder == null || notesHolder == undefined || notesHolder == "") {notesHolder = "No notes on engagement."}
-    notes.innerText = notesHolder;
+
+    if (newEngagement.notes == null || newEngagement.notes == undefined || newEngagement.notes == "") 
+        {newEngagement.notes = "No notes on engagement."}
+    notes.innerText = newEngagement.notes;
 
     // I think it's worth copying the edit/delete buttons from class. Edit will be a form and delete will bring up a toast pop-up to delete the row
-    editBtnTd.innerHTML = `<button class="btn btn-primary p-1" id="EDIT-${newEngagement.engagementId}" onclick="activateEdit(${newEngagement.engagementId})">Edit</button>`;
+    editBtnTd.innerHTML = `<button class="btn btn-primary p-1" id="EDIT-${newEngagement.engagementId}" onclick="activateEdit(${newEngagement.engagementId})"><i class="bi bi-pencil-square"></i></button>`;
     deleteBtnTd.innerHTML = `<button class="btn btn-danger p-1" id="EDIT-${newEngagement.engagementId}" onclick="openModal(${newEngagement.engagementId})"
-    data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>`;
+    data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="bi bi-trash"></button>`;
 
     tr.appendChild(advisoryName);
     tr.appendChild(clientName);

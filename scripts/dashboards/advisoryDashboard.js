@@ -30,6 +30,7 @@ const addAdvisoryToTable = (newAdvisory) => {
     let active = document.createElement("td");
     let numClients = document.createElement("td");
 
+    let infoBtnTd = document.createElement("td");
     let editBtnTd = document.createElement("td");   // creates <td> tag for edit button
     let deleteBtnTd = document.createElement("td"); // creates <td> tag for delete button
 
@@ -41,15 +42,19 @@ const addAdvisoryToTable = (newAdvisory) => {
     annualFee.innerText = newAdvisory.annualFee;
     active.innerText = mapActiveFromBoolToText(newAdvisory.active);
     numClients.innerText = newAdvisory.numClients;
-
+    
+    infoBtnTd.innerHTML = `
+    <button class="btn btn-secondary p-1" id="INFO-${newAdvisory.advisoryId}" onclick="activateInfo(${newAdvisory.advisoryId})"><i class="bi bi-search"></i></button>`
     editBtnTd.innerHTML = `
-    <button class="btn btn-primary p-1" id="EDIT-${newAdvisory.advisoryId}" onclick="activateEdit(${newAdvisory.advisoryId})">Edit</button>
+    <button class="btn btn-primary p-1" id="EDIT-${newAdvisory.advisoryId}" onclick="activateEdit(${newAdvisory.advisoryId})"><i class="bi bi-pencil-square"></i></button>
     `;
     deleteBtnTd.innerHTML = `
     <button class="btn btn-danger p-1 delete-btn" id="DELETE-${newAdvisory.advisoryId}" onclick="openModal(${newAdvisory.advisoryId})"
-    data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>
+    data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="bi bi-trash"></i></button>
     `;
     
+    tr.appendChild(infoBtnTd);
+
     tr.appendChild(name); 
     tr.appendChild(type); 
     tr.appendChild(format);
@@ -66,6 +71,10 @@ const addAdvisoryToTable = (newAdvisory) => {
     
     allAdvisories.push({...newAdvisory, element: tr});  
     console.log(allAdvisories);
+}
+
+const activateInfo = (advisoryId) => {
+    window.location.href = `../detailedViews/advisoryDetailedView.html?id=${advisoryId}`;
 }
 
 const activateEdit = (advisoryId) => {
@@ -136,7 +145,7 @@ searchInput.addEventListener("input", (e) => {
     })
 })
 
-const mapServTypeFromEnumToText = (enumString) => {
+function mapServTypeFromEnumToText(enumString) {
     switch(enumString) {
         case "BUDGETING":               return "Budgeting";
         case "CASH_FLOW_ANALYSIS":      return "Cash Flow Analysis";
@@ -150,7 +159,7 @@ const mapServTypeFromEnumToText = (enumString) => {
     }
 }
 
-const mapDelivFormatFromEnumToText = (enumString) => {
+function mapDelivFormatFromEnumToText(enumString) {
     switch(enumString) {
         case "IN_PERSON":   return "In-Person";
         case "HYBRID":      return "Hybrid";
@@ -159,7 +168,7 @@ const mapDelivFormatFromEnumToText = (enumString) => {
     }
 }
 
-const mapActiveFromBoolToText = (active) => {
+function mapActiveFromBoolToText(active) {
     activeBool = Boolean (active);
     if (activeBool) {
         return "Active"

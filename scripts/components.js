@@ -4,11 +4,8 @@ class Header extends HTMLElement {
     this.innerHTML = `
 <nav class="navbar bg-dark navbar-expand-lg border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Advisory Admin</a>
+    <a class="navbar-brand" href="/pages/dashboards/engagementsView.html">Advisory Admin</a>
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/pages/dashboards/engagementsView.html">Home</a> <!-- need to add links to other pages/dashboards -->
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/pages/dashboards/engagementsView.html">Engagements</a>
         </li>

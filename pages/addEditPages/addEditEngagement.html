@@ -16,90 +16,94 @@
     <form id="engagement-form" action="#">  <!-- forms naturally try to redirect you, so use # action to prevent. Or give it a page to redirect you to -->
 
   <h3 class="h3 p-4 text-dark text-center" id="form-header">New Engagement</h3>
+<div class="container-fluid">
+    <div class="row mb-3 justify-content-center">
 
-  <div class="row mb-3 justify-content-center">
+        <div class="col-3">
 
-      <div class="col-3">
-
-          <div class="mx-1"> <!-- TODO: figure out way to retrieve client or add new one -->
-                <label class="form-label text-dark">Client</label>
-                <div class="input-group" > <!-- omg this is awesome https://getbootstrap.com/docs/4.0/components/input-group/ -->
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="selected-client-display"
-                        placeholder="No client selected"
-                        readonly
-                    >
-
-                    <button class="btn btn-outline-primary" type="button"
-                            id="open-client-modal-btn"
-                            onclick="loadClientModal()"
+            <div class="mx-1"> <!-- TODO: figure out way to retrieve client or add new one -->
+                    <label class="form-label text-dark">Client</label>
+                    <div class="input-group" > <!-- omg this is awesome https://getbootstrap.com/docs/4.0/components/input-group/ -->
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="selected-client-display"
+                            placeholder="No client selected"
+                            readonly
                         >
-                        Select
-                    </button>
-                </div>
-          </div>
 
-      </div>
-      <div class="col-4">
-
-          <div class="mx-1"> <!-- TODO: figure out way to retrieve client or add new one -->
-                <label class="form-label text-dark">Advisory Service</label>
-                <div class="input-group" >
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="selected-advisory-display"
-                        placeholder="No advisory service selected"
-                        readonly
-                    >
-
-                    <button class="btn btn-outline-primary" type="button"
-                            id="open-advisory-modal-btn"
-                            onclick="loadAdvisoryModal()"
+                        <button class="btn btn-outline-primary" type="button"
+                                id="open-client-modal-btn"
+                                onclick="loadClientModal()"
                             >
-                            
-                        Select
-                    </button>
-                </div>
-          </div>
-      </div>
-      <div class="col-2">
+                            Select
+                        </button>
+                    </div>
+            </div>
 
-          <div class="mx-1"> 
-              <label for="new-start-date" class="form-label text-dark">Engagement Start Date</label>
-              <input type="date" class="form-control" id="new-start-date" name="new-start-date" placeholder="mm/dd/yyyy">
-          </div>
-      </div>
-  </div>
-  <div class="row mb-3 justify-content-center">
-      <div class="col-2">
+        </div>
+        <div class="col-4">
 
-          <div class="mx-1">
-              <label for="new-engagement-status" class="form-label text-dark">Engagement Status</label>
-              <select id="new-engagement-status" class="form-select" name="new-engagement-status" aria-label="Engagement Status Form Select">
-                  <option selected>Select Status</option>
-                  <option value="ACTIVE">Active</option> 
-                  <option value="PAUSED">Paused</option>
-                  <option value="COMPLETED">Completed</option>
-              </select>
-          </div>
-      </div>
-      <div class="col-8">
-          
-          <div class="mx-1"> 
-              <label for="new-notes" class="form-label text-dark">Notes</label>
-              <input type="text" class="form-control" id="new-notes" name="new-notes" placeholder="Any extra info here...">
-          </div>
-      </div>
-      
-  </div>
+            <div class="mx-1"> <!-- TODO: figure out way to retrieve client or add new one -->
+                    <label class="form-label text-dark">Advisory Service</label>
+                    <div class="input-group" >
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="selected-advisory-display"
+                            placeholder="No advisory service selected"
+                            readonly
+                        >
+
+                        <button class="btn btn-outline-primary" type="button"
+                                id="open-advisory-modal-btn"
+                                onclick="loadAdvisoryModal()"
+                                >
+                                
+                            Select
+                        </button>
+                    </div>
+            </div>
+        </div>
+        <div class="col-2">
+
+            <div class="mx-1"> 
+                <label for="new-start-date" class="form-label text-dark">Engagement Start Date</label>
+                <input type="date" class="form-control" id="new-start-date" name="new-start-date" placeholder="mm/dd/yyyy">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row mb-3 justify-content-center">
+        <div class="col-2">
+
+            <div class="mx-1">
+                <label for="new-engagement-status" class="form-label text-dark">Engagement Status</label>
+                <select id="new-engagement-status" class="form-select" name="new-engagement-status" aria-label="Engagement Status Form Select">
+                    <option selected>Select Status</option>
+                    <option value="ACTIVE">Active</option> 
+                    <option value="PAUSED">Paused</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-8">
+            
+            <div class="mx-1"> 
+                <label for="new-notes" class="form-label text-dark">Notes</label>
+                <input type="text" class="form-control" id="new-notes" name="new-notes" placeholder="Any extra info here...">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
   <div class="row justify-content-center">
       <div class="col-2">
           <button type="submit" class="btn btn-success mx-1" id="engagement-submit-button">Submit</button>
       </div>
   </div>
+</div>
 </form>
 
 

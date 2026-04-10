@@ -4,6 +4,7 @@ let allClients = [];
 let selectedClient;
 let allAdvisories = [];
 let selectedAdvisory;
+let allEngagements = [];
 
 // in the case of getting to this page from the edit button, autofill the form with previous data
 if (engagementURLId) {
@@ -28,6 +29,21 @@ if (engagementURLId) {
         });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    // 
+    fetch("http://localhost:8080/engagements", {
+        method: "GET"
+    }).then( response => {
+        if (!response.ok)
+            throw new Error("Could not retrieve data");
+        return response.json();
+    }).then( engagements => {
+        engagements.forEach((engagement) => allEngagements.push(engagement));
+        console.log(allEngagements);
+    }).catch( error => console.error("Error fetching data." + error.stack));
+    
+});
+
 document.getElementById("engagement-form").addEventListener("submit", (eventInfo) => {
     eventInfo.preventDefault();
 
@@ -41,6 +57,15 @@ document.getElementById("engagement-form").addEventListener("submit", (eventInfo
         alert("Please select an advisory service before submitting.");
         return;
     }
+    let dupeFlag = false;
+    allEngagements.forEach(e => {
+        if (e.client.clientId==selectedClient.clientId && e.advisory.advisoryId==selectedAdvisory.advisoryId) {
+            alert("There is already an engagement between that client and advisory, please edit that one in the dashboard.");
+            dupeFlag = true;
+            return;
+        }
+    });
+    if (dupeFlag) {return};
 
 
     let inputData = new FormData(document.getElementById("engagement-form"));
