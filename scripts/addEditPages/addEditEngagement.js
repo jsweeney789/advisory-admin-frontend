@@ -59,7 +59,7 @@ document.getElementById("engagement-form").addEventListener("submit", (eventInfo
     }
     let dupeFlag = false;
     allEngagements.forEach(e => {
-        if (e.client.clientId==selectedClient.clientId && e.advisory.advisoryId==selectedAdvisory.advisoryId) {
+        if ((e.client.clientId==selectedClient.clientId && e.advisory.advisoryId==selectedAdvisory.advisoryId) && engagementURLId==null) {
             alert("There is already an engagement between that client and advisory, please edit that one in the dashboard.");
             dupeFlag = true;
             return;
